@@ -14,7 +14,7 @@ HOME=os.getenv("NV_DOTF_HOME", os.getenv("HOME", "/tmp"))
 p = argparse.ArgumentParser("nvim dotfiles")
 p.add_argument("name", nargs="?", default="--removeonly", help="the name of the nvim dotfile")
 p.add_argument("-y", "--noconfirm", help="don't confirm", action="store_true")
-p.add_argument("-c", "--configfile", default=f"{HOME}/.config/nvim-dotf/dirs.json", help="configfile")
+p.add_argument("-c", "--configfile", default=f"{HOME}/.config/nv-dotf/dirs.json", help="configfile")
 p.add_argument("-r:n", "--noremovefile", action="store_true", help="don't remove any previously existing item (*uses -r*)")
 p.add_argument("-r:f", "--force", action="store_true", help="use -f on the rm command")
 
@@ -37,7 +37,7 @@ try:
 except:
     print("Using default config:")
     rich.print_json(data=dirs)
-    print(f"add dirs.json in ~/.config/nvim-dotf/dirs.json for an actual configuration. alternately, edit your python source code to remove this annoying message.")
+    print(f"add dirs.json in ~/.config/nv-dotf/dirs.json for an actual configuration. alternately, edit your python source code to remove this annoying message.")
 
 if input(f"\033[36mAre you sure you want to {'remove your current dotfiles' if args.removeonly else f'replace your dotfiles with {args.name}'}? \033[0m").lower() == "n":
     print("\033[32mExiting without doing anything\033[0m")
