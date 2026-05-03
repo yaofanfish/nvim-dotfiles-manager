@@ -42,7 +42,7 @@ if input(f"\033[36mAre you sure you want to replace your dotfiles with {args.nam
     sys.exit(2)
 
 for d in dirs.keys():
-    if args.removefile:
+    if args.removefile or args.removeonly:
         subprocess.run(["rm", "-r", "-f" if args.force else "-i", f"{d}/{dirs[d]}"])
     if not args.removeonly:
         subprocess.run(["ln", "-sfn", f"{d}/{args.name}", f"{d}/{dirs[d]}"])
