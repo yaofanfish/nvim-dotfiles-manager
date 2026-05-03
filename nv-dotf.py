@@ -39,7 +39,7 @@ except:
     rich.print_json(data=dirs)
     print(f"add dirs.json in ~/.config/nvim-dotf/dirs.json for an actual configuration. alternately, edit your python source code to remove this annoying message.")
 
-if input(f"\033[36mAre you sure you want to replace your dotfiles with {args.name}? \033[0m").lower() == "n":
+if input(f"\033[36mAre you sure you want to {'remove your current dotfiles' if args.removeonly else f'replace your dotfiles with {args.name}'}? \033[0m").lower() == "n":
     print("\033[32mExiting without doing anything\033[0m")
     sys.exit(2)
 
