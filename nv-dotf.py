@@ -43,10 +43,12 @@ if input(f"\033[36mAre you sure you want to {'remove your current dotfiles' if a
     print("\033[32mExiting without doing anything\033[0m")
     sys.exit(2)
 
+rcodet = 0 # return code total aha my code will be so readable in the future
 for d in dirs.keys():
     if not args.noremovefile:
-        subprocess.run(["rm", "-r", "-f" if args.force else "-i", f"{d}/{dirs[d]}"])
+        rcodet += subprocess.run(["rm", "-r", "-f" if args.force else "-i", f"{d}/{dirs[d]}"]).returncode
     if not args.removeonly:
-        subprocess.run(["ln", "-sfn", f"{d}/{args.name}", f"{d}/{dirs[d]}"])
-
+        rcodet += subprocess.run(["ln", "-sfn", f"{d}/{args.name}", f"{d}/{dirs[d]}"]).returncode
+if 1: # if rcodet
+    print("\033[32mExiting after doing something")
 
