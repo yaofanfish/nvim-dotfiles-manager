@@ -12,7 +12,7 @@ except:
 
 HOME=os.getenv("NV_DOTF_HOME", os.getenv("HOME", "/tmp"))
 p = argparse.ArgumentParser("nvim dotfiles")
-p.add_argument("name", help="the name of the nvim dotfile")
+p.add_argument("name", nargs="?", default="--removeonly", help="the name of the nvim dotfile")
 p.add_argument("-y", "--noconfirm", help="don't confirm", action="store_true")
 p.add_argument("-c", "--configfile", default=f"{HOME}/.config/nvim-dotf/dirs.json", help="configfile")
 p.add_argument("-r:n", "--noremovefile", action="store_true", help="don't remove any previously existing item (*uses -r*)")
@@ -21,7 +21,9 @@ p.add_argument("-r:-f", "--noforce", action="store_true", help="no use -f on the
 p.add_argument("--removeonly", action="store_true")
 #p.add_
 args = p.parse_args()
-               
+if args.name == "--removeonly" and not args.removeonly:
+    p.print_help()
+    sys.exit(2)
 
 dirs = {
         f"{HOME}/.config": "nvim", # "nvim" is the dir being replaced
