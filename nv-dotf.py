@@ -17,6 +17,8 @@ p.add_argument("-y", "--noconfirm", help="don't confirm", action="store_true")
 p.add_argument("-c", "--configfile", default=f"{HOME}/.config/nvim-dotf/dirs.json", help="configfile")
 p.add_argument("-r", "--removefile", action="store_true", help="remove any previously existing item (*uses -r*)")
 p.add_argument("-f", "--force", action="store_true", help="use -f on the rm command")
+
+p.add_argument("--removeonly", action="store_true")
 #p.add_
 args = p.parse_args()
                
@@ -42,6 +44,7 @@ if input(f"\033[36mAre you sure you want to replace your dotfiles with {args.nam
 for d in dirs.keys():
     if args.removefile:
         subprocess.run(["rm", "-r", "-f" if args.force else "-i", f"{d}/{dirs[d]}"])
-    subprocess.run(["ln", "-sfn", f"{d}/{args.name}", f"{d}/{dirs[d]}"])
+    if not args.removeonly:
+        subprocess.run(["ln", "-sfn", f"{d}/{args.name}", f"{d}/{dirs[d]}"])
 
 
